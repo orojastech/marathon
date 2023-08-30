@@ -1,5 +1,6 @@
 import * as express from 'express';
 import { CreateEnterpriseUseCase } from "../usesCases/services/exam.service.enterprise";
+import { TokenValidation } from '../libraries/exam.lib.validatetoken'
 
 class EnterpriseController {
   public path = '/enterprise';
@@ -12,8 +13,8 @@ class EnterpriseController {
   }
  
   public intializeRoutes() {
-    this.router.get(this.path, this.getAllEnterprises);
-    this.router.post(this.path, this.createEnterprise);
+    this.router.get(this.path,TokenValidation,  this.getAllEnterprises);
+    this.router.post(this.path,TokenValidation,  this.createEnterprise);
   }
  
   getAllEnterprises = async (request: express.Request, response: express.Response) => {
